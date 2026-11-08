@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10131c">
+  <meta name="description" content="DAYFLOW — your daily routine and habit companion.">
+  <title>DAYFLOW — Personal Productivity</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="launch-screen" id="launchScreen" aria-label="Loading DAYFLOW"><div class="launch-logo"><img src="icon.svg" alt="DAYFLOW"></div><b>DAYFLOW</b><span>Your day, your pace.</span><i></i></div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="DAYFLOW home"><span class="brand-mark"><img src="icon.svg" alt=""></span><span>DAYFLOW<small>PERSONAL SPACE</small></span></a>
+      <nav class="side-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-page="home"><span>⌂</span> Overview</button>
+        <button class="nav-item" data-page="routine"><span>▤</span> My routine</button>
+        <button class="nav-item" data-page="habits"><span>◉</span> Habits</button>
+        <button class="nav-item" data-page="calendar"><span>▦</span> Calendar</button>
+        <button class="nav-item" data-page="focus"><span>◷</span> Focus timer</button>
+        <button class="nav-item" data-page="wellness"><span>♡</span> Wellness</button>
+        <button class="nav-item" data-page="journal"><span>✎</span> Journal</button>
+        <button class="nav-item" data-page="insights"><span>▥</span> Insights</button>
+        <button class="nav-item" data-page="coach"><span>✦</span> Smart coach</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="side-note"><span class="online-dot"></span><div><b>Private by default</b><small>Your data stays on this device.</small></div></div>
+        <button class="nav-item" data-page="settings"><span>⚙</span> Settings & backup</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark"><img src="icon.svg" alt=""></span><b>DAYFLOW</b></div>
+        <div class="top-date" id="topDate"></div>
+        <div class="top-actions">
+          <button class="icon-btn" id="notificationBtn" title="Enable alarms and reminders" aria-label="Enable alarms and reminders">♧</button>
+          <button class="icon-btn theme-toggle" id="themeToggle" type="button" title="Switch to light mode" aria-label="Switch to light mode" aria-pressed="false"><span class="theme-glyph" aria-hidden="true">☼</span></button>
+          <button class="avatar profile-avatar" id="profileBtn" aria-label="Open your profile">Y</button>
+        </div>
+      </header>
+
+      <section class="page active" id="page-home">
+        <div class="welcome-row">
+          <div><p class="eyebrow" id="greeting">YOUR DAY, YOUR PACE</p><h1>Make today <span class="gradient-text">count.</span></h1><p class="muted">Small steps are still progress. Let's see what's ahead.</p></div>
+          <div class="welcome-actions"><label class="day-mode-label">TODAY'S MODE<select id="dayMode"><option value="regular">Regular day</option><option value="rest">Rest day</option><option value="recovery">Recovery day</option></select></label><button class="primary-btn" data-open-modal="routineModal">＋ Add activity</button></div>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card hero-stat"><div class="stat-label">TODAY'S PROGRESS <span class="mini-icon">↗</span></div><div class="progress-row"><div class="progress-ring" id="progressRing"><div><strong id="progressPercent">0%</strong><small>completed</small></div></div><div class="progress-copy"><h2 id="progressCount">0 of 0</h2><p class="muted">activities completed</p><span class="status-chip" id="dayStatus">A fresh start</span></div></div></article>
+          <article class="stat-card"><div class="stat-label">HABIT STREAK <span class="mini-icon">♨</span></div><div class="big-number" id="streakValue">0 <small>days</small></div><p class="muted">Your current consistency streak</p><div class="tiny-bars" id="streakBars"></div></article>
+          <article class="stat-card"><div class="stat-label">TIME PLANNED <span class="mini-icon">◷</span></div><div class="big-number" id="plannedTime">0 <small>min</small></div><p class="muted">Across today's activities</p><div class="stat-foot">Plan realistically. Leave room to breathe.</div></article>
+        </div>
+        <div class="content-grid">
+          <section class="panel today-panel">
+            <div class="panel-heading"><div><p class="eyebrow">YOUR SCHEDULE</p><h2>Today's routine</h2></div><button class="text-btn" data-goto="routine">View all →</button></div>
+            <div id="todayList" class="activity-list"></div>
+          </section>
+          <section class="panel coach-preview">
+            <div class="panel-heading"><div><p class="eyebrow">A LITTLE GUIDANCE</p><h2>Today's nudge</h2></div><span class="sparkle">✦</span></div>
+            <div id="homeSuggestion" class="suggestion-card"><div class="suggestion-icon">✦</div><div><b>Start with one small step</b><p>Add a routine or habit and DAYFLOW will learn what works for you.</p></div></div>
+            <button class="outline-btn full-width" data-goto="coach">Open smart coach</button>
+            <div class="mood-box"><div><b>How are you feeling?</b><small>A quick check-in for today</small></div><div class="mood-options" id="moodOptions"><button data-mood="low" title="Low">☁</button><button data-mood="okay" title="Okay">◒</button><button data-mood="good" title="Good">☀</button><button data-mood="great" title="Great">✦</button></div></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="page" id="page-routine">
+        <div class="page-heading"><div><p class="eyebrow">PLAN WITH FLEXIBILITY</p><h1>My routine</h1><p class="muted">Your day is a guide, not a strict rulebook.</p></div><button class="primary-btn" data-open-modal="routineModal">＋ Add activity</button></div>
+        <div class="toolbar"><input type="date" id="routineDate"><div class="filter-pills"><button class="filter-btn active" data-filter="all">All</button><button class="filter-btn" data-filter="pending">Pending</button><button class="filter-btn" data-filter="done">Completed</button></div></div>
+        <section class="panel templates-panel"><div class="panel-heading"><div><p class="eyebrow">START WITH A PLAN</p><h2>Routine templates</h2></div><span class="muted small-note">Add a ready-made day</span></div><div class="template-grid"><button class="template-card" data-template="balanced"><b>Balanced day</b><small>Study, movement, breaks and personal time</small></button><button class="template-card" data-template="study"><b>Study day</b><small>Focused learning with planned breaks</small></button><button class="template-card" data-template="morning"><b>Morning reset</b><small>A calm start to the day</small></button><button class="template-card" data-template="recovery"><b>Light recovery day</b><small>Simple tasks and enough rest</small></button></div></section>
+        <div class="panel"><div id="routineList" class="activity-list"></div><div id="routineEmpty" class="empty-state hidden"><div>☷</div><b>No activities for this day</b><p>Add something you want to make time for.</p><button class="primary-btn" data-open-modal="routineModal">Add your first activity</button></div></div>
+      </section>
+
+      <section class="page" id="page-habits">
+        <div class="page-heading"><div><p class="eyebrow">CONSISTENCY OVER PERFECTION</p><h1>Habits</h1><p class="muted">Build small habits that fit your real life.</p></div><button class="primary-btn" data-open-modal="habitModal">＋ Add habit</button></div>
+        <div class="habit-summary"><div><span class="eyebrow">TODAY'S HABITS</span><h2 id="habitCount">0 / 0</h2><p class="muted">completed today</p></div><div class="habit-summary-track"><div id="habitSummaryFill"></div></div><div class="habit-summary-percent" id="habitSummaryPercent">0%</div></div>
+        <section class="panel goals-panel"><div class="panel-heading"><div><p class="eyebrow">KEEP MOVING TOWARD SOMETHING</p><h2>Personal goals</h2></div><button class="outline-btn" data-open-modal="goalModal">＋ Add goal</button></div><div id="goalList" class="goal-list"></div><div id="goalEmpty" class="muted">Add a goal, such as learning a new skill or completing a weekly exercise target.</div></section>
+        <div id="habitList" class="habit-grid"></div>
+        <div id="habitEmpty" class="empty-state"><div>◉</div><b>No habits yet</b><p>Start with something simple, like drinking water or reading for 10 minutes.</p><button class="primary-btn" data-open-modal="habitModal">Create a habit</button></div>
+      </section>
+
+      <section class="page" id="page-insights">
+        <div class="page-heading"><div><p class="eyebrow">NOTICE YOUR PROGRESS</p><h1>Insights</h1><p class="muted">A realistic picture of how your days are going.</p></div><span class="range-label">LAST 7 DAYS</span></div>
+        <div class="stats-grid insight-stats"><article class="stat-card"><div class="stat-label">COMPLETION RATE</div><div class="big-number" id="weekRate">0%</div><p class="muted">of scheduled activities</p></article><article class="stat-card"><div class="stat-label">ACTIVITIES DONE</div><div class="big-number" id="weekDone">0</div><p class="muted">in the last 7 days</p></article><article class="stat-card"><div class="stat-label">ACTIVE DAYS</div><div class="big-number" id="activeDays">0 <small>/ 7</small></div><p class="muted">days with activity records</p></article></div>
+        <div class="content-grid">
+          <section class="panel"><div class="panel-heading"><div><p class="eyebrow">WEEKLY OVERVIEW</p><h2>Daily completion</h2></div></div><div id="weeklyChart" class="weekly-chart"></div></section>
+          <section class="panel"><div class="panel-heading"><div><p class="eyebrow">YOUR PATTERNS</p><h2>What we're noticing</h2></div></div><div id="insightNotes" class="insight-notes"></div></section>
+        </div>
+        <section class="panel audit-panel"><div class="panel-heading"><div><p class="eyebrow">WHERE YOUR TIME GOES</p><h2>Time audit</h2></div><span class="local-tag">BASED ON YOUR TRACKED TIME</span></div><div id="timeAudit" class="audit-grid"></div><div id="procrastinationNotes" class="insight-notes audit-notes"></div></section>
+      </section>
+
+      <section class="page" id="page-calendar">
+        <div class="page-heading"><div><p class="eyebrow">SEE THE BIGGER PICTURE</p><h1>Calendar</h1><p class="muted">Your plans and completed activities in one view.</p></div><button class="primary-btn" data-open-modal="routineModal">＋ Add activity</button></div>
+        <section class="panel"><div class="calendar-toolbar"><button class="outline-btn" id="calendarPrev">←</button><h2 id="calendarMonth">Month</h2><button class="outline-btn" id="calendarNext">→</button><button class="text-btn" id="calendarToday">Today</button></div><div class="calendar-grid" id="calendarGrid"></div></section>
+        <section class="panel calendar-day-panel"><div class="panel-heading"><div><p class="eyebrow">SELECTED DAY</p><h2 id="calendarSelectedDate">Today</h2></div><button class="outline-btn" id="calendarAdd">＋ Add activity</button></div><div id="calendarDayList" class="activity-list"></div></section>
+      </section>
+
+      <section class="page" id="page-focus">
+        <div class="page-heading"><div><p class="eyebrow">ONE THING AT A TIME</p><h1>Focus timer</h1><p class="muted">Work in focused sessions and give yourself proper breaks.</p></div><span class="local-tag">SESSION TRACKER</span></div>
+        <section class="panel focus-panel"><div class="focus-mode-switch"><button class="focus-mode active" data-focus-mode="focus">Focus</button><button class="focus-mode" data-focus-mode="short">Short break</button><button class="focus-mode" data-focus-mode="long">Long break</button></div><div class="focus-clock" id="focusClock">25:00</div><p class="muted" id="focusStatus">Ready when you are.</p><div class="focus-controls"><button class="primary-btn" id="focusStart">Start focus</button><button class="outline-btn" id="focusReset">Reset</button></div><div class="focus-settings"><label>Focus minutes<input type="number" id="focusMinutes" min="1" max="180" value="25"></label><label>Break minutes<input type="number" id="breakMinutes" min="1" max="60" value="5"></label></div><div class="focus-session-count"><b id="focusSessions">0</b><span>focus sessions completed today</span></div></section>
+        <section class="panel"><div class="panel-heading"><div><p class="eyebrow">YOUR FOCUS HISTORY</p><h2>Recent sessions</h2></div></div><div id="focusHistory" class="insight-notes"></div></section>
+      </section>
+
+      <section class="page" id="page-wellness">
+        <div class="page-heading"><div><p class="eyebrow">TAKE CARE OF YOURSELF TOO</p><h1>Wellness</h1><p class="muted">Track simple daily check-ins. No pressure to hit perfect numbers.</p></div><span class="range-label" id="wellnessDateLabel">TODAY</span></div>
+        <section class="panel sleep-plan-panel">
+          <div class="panel-heading"><div><p class="eyebrow">YOUR REST ROUTINE</p><h2>Sleep & wake-up plan</h2><p class="muted">Choose when you need to wake up and how long you want to sleep.</p></div><span class="sleep-icon">☾</span></div>
+          <div class="form-row"><label>Wake-up time<input type="time" id="wakeTime" value="07:00"></label><label>Sleep target (hours)<select id="sleepTarget"><option value="6">6 hours</option><option value="6.5">6.5 hours</option><option value="7">7 hours</option><option value="7.5">7.5 hours</option><option value="8" selected>8 hours</option><option value="8.5">8.5 hours</option><option value="9">9 hours</option></select></label></div>
+          <div class="sleep-result" id="sleepResult">Suggested bedtime: 11:00 PM</div>
+          <div class="form-row"><label>Wind-down reminder<select id="windDown"><option value="0">Off</option><option value="15">15 minutes before</option><option value="30" selected>30 minutes before</option><option value="45">45 minutes before</option><option value="60">1 hour before</option></select></label><label class="sleep-toggle-label"><span>Wake-up reminder</span><span class="toggle-wrap"><input type="checkbox" id="wakeReminder" checked><small>Notify me</small></span></label></div>
+          <button class="primary-btn" id="saveSleepPlan">Save sleep plan</button>
+          <p class="tiny-disclaimer">On Android, DAYFLOW can schedule phone notifications for your bedtime and wake-up plan. Allow notifications and exact alarms when your phone asks. Battery saver may still affect delivery.</p>
+        </section>
+        <section class="panel wellness-panel"><div class="form-row"><label>Sleep (hours)<input type="number" id="sleepHours" min="0" max="24" step="0.5" placeholder="e.g. 7.5"></label><label>Water (glasses)<input type="number" id="waterGlasses" min="0" max="30" step="1" placeholder="e.g. 6"></label></div><div class="form-row"><label>Exercise (minutes)<input type="number" id="exerciseMinutes" min="0" max="1440" placeholder="e.g. 30"></label><label>Energy level<select id="energyLevel"><option value="">Choose level</option><option value="1">1 · Very low</option><option value="2">2 · Low</option><option value="3">3 · Okay</option><option value="4">4 · Good</option><option value="5">5 · High</option></select></label></div><label>Quick note<textarea id="wellnessNote" rows="3" maxlength="250" placeholder="Anything affecting your energy today?"></textarea></label><button class="primary-btn" id="saveWellness">Save today's check-in</button></section>
+        <section class="panel"><div class="panel-heading"><div><p class="eyebrow">RECENT CHECK-INS</p><h2>Your wellness history</h2></div></div><div id="wellnessHistory" class="wellness-history"></div></section>
+      </section>
+
+      <section class="page" id="page-journal">
+        <div class="page-heading"><div><p class="eyebrow">MAKE SPACE TO REFLECT</p><h1>Daily journal</h1><p class="muted">Write a few lines about your day. Your entries stay on this device.</p></div></div>
+        <section class="panel journal-panel"><label>Entry date<input type="date" id="journalDate"></label><label>What happened today?<textarea id="journalText" rows="7" maxlength="3000" placeholder="Write freely. What went well? What was difficult? What would you like to try tomorrow?"></textarea></label><div class="journal-footer"><small class="muted" id="journalSavedAt">Not saved yet</small><button class="primary-btn" id="saveJournal">Save entry</button></div></section>
+        <section class="panel"><div class="panel-heading"><div><p class="eyebrow">PAST ENTRIES</p><h2>Your journal</h2></div></div><div id="journalHistory" class="journal-history"></div></section>
+      </section>
+
+      <section class="page" id="page-coach">
+        <div class="page-heading"><div><p class="eyebrow">NO JUDGMENT, JUST PROGRESS</p><h1>Smart coach <span class="gradient-text">✦</span></h1><p class="muted">Practical suggestions based on the routines you record.</p></div><span class="local-tag">ON-DEVICE RULES</span></div>
+        <div class="coach-intro"><div class="coach-orb">✦</div><div><h2>Your personal routine check-in</h2><p>These suggestions are generated from your activity history. They're prompts to consider, not medical or professional advice.</p></div></div>
+        <div id="coachSuggestions" class="coach-list"></div>
+        <div class="panel coach-feedback"><b>Make the advice more useful</b><p class="muted">Add activities, mark them honestly, and check in with your mood. More consistent records help DAYFLOW spot patterns.</p><button class="outline-btn" data-goto="routine">Review my routine</button></div>
+      </section>
+
+      <section class="page" id="page-settings">
+        <div class="page-heading"><div><p class="eyebrow">YOUR DATA, YOUR CHOICE</p><h1>Settings & backup</h1><p class="muted">Manage reminders and keep a copy of your information.</p></div></div>
+        <div class="settings-grid">
+          <section class="panel setting-card"><div class="setting-icon">◉</div><h2>Personal profile</h2><p class="muted">Update your name, interests, habits and personal preferences.</p><button class="outline-btn" id="editProfileBtn">Edit my profile</button></section>
+          <section class="panel setting-card"><div class="setting-icon">♧</div><h2>Reminders</h2><p class="muted">Allow DAYFLOW to send phone notifications for your routine and sleep reminders. Android alarm and notification permissions are managed by your phone.</p><button class="primary-btn" id="enableNotifications">Enable notifications</button><small id="notificationStatus" class="muted">Permission not requested</small></section>
+          <section class="panel setting-card"><div class="setting-icon">⇩</div><h2>Export your data</h2><p class="muted">Download a JSON backup of routines, habits, check-ins, and history.</p><button class="outline-btn" id="exportBtn">Download backup</button></section>
+          <section class="panel setting-card"><div class="setting-icon">⇧</div><h2>Restore a backup</h2><p class="muted">Import a previous DAYFLOW backup. This replaces the current data.</p><label class="outline-btn file-label">Choose backup file<input type="file" id="importFile" accept="application/json"></label></section>
+          <section class="panel setting-card danger-card"><div class="setting-icon">⌫</div><h2>Clear all data</h2><p class="muted">Permanently remove all DAYFLOW data saved in this browser.</p><button class="danger-btn" id="clearDataBtn">Clear my data</button></section>
+        </div>
+        <p class="privacy-note">DAYFLOW v3.0 · Your records are stored in this browser on this device. Clearing browser data may erase them. Export a backup regularly.</p>
+      </section>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <button class="active" data-page="home"><span>⌂</span><small>Home</small></button><button data-page="routine"><span>▤</span><small>Routine</small></button><button data-page="habits"><span>◉</span><small>Habits</small></button><button data-page="calendar"><span>▦</span><small>Calendar</small></button><button data-page="focus"><span>◷</span><small>Focus</small></button><button data-page="wellness"><span>♡</span><small>Wellness</small></button><button data-page="journal"><span>✎</span><small>Journal</small></button><button data-page="insights"><span>▥</span><small>Insights</small></button><button data-page="coach"><span>✦</span><small>Coach</small></button><button data-page="settings"><span>⚙</span><small>Settings</small></button>
+  </nav>
+
+  <div class="modal-backdrop hidden" id="routineModal"><form class="modal" id="routineForm"><div class="modal-head"><div><p class="eyebrow">MAKE TIME FOR IT</p><h2 id="routineModalTitle">Add activity</h2></div><button type="button" class="close-btn" data-close-modal>×</button></div><input type="hidden" id="activityId"><label>Activity name<input id="activityName" required maxlength="70" placeholder="e.g. Study programming"></label><div class="form-row"><label>Date<input type="date" id="activityDate" required></label><label>Category<select id="activityCategory"><option>Personal</option><option>Study</option><option>Work</option><option>Exercise</option><option>Health</option><option>Rest</option><option>Other</option></select></label></div><div class="form-row"><label>Start time<input type="time" id="activityTime"></label><label>Duration (minutes)<input type="number" id="activityDuration" min="0" max="1440" value="30"></label></div><div class="form-row"><label>Priority<select id="activityPriority"><option value="normal">Normal</option><option value="high">Important</option><option value="low">Optional</option></select></label><label>Reminder<select id="activityReminder"><option value="none">No reminder</option><option value="5">5 minutes before</option><option value="10">10 minutes before</option><option value="15">15 minutes before</option></select></label></div><label>Notes (optional)<textarea id="activityNotes" rows="2" maxlength="250" placeholder="Anything you want to remember?"></textarea></label><div class="modal-actions"><button type="button" class="outline-btn" data-close-modal>Cancel</button><button class="primary-btn" type="submit">Save activity</button></div></form></div>
+
+  <div class="modal-backdrop hidden" id="habitModal"><form class="modal" id="habitForm"><div class="modal-head"><div><p class="eyebrow">SMALL STEPS ADD UP</p><h2 id="habitModalTitle">Add habit</h2></div><button type="button" class="close-btn" data-close-modal>×</button></div><input type="hidden" id="habitId"><label>Habit name<input id="habitName" required maxlength="55" placeholder="e.g. Read for 10 minutes"></label><div class="form-row"><label>Category<select id="habitCategory"><option>Health</option><option>Learning</option><option>Fitness</option><option>Personal</option><option>Other</option></select></label><label>Target<select id="habitTarget"><option value="daily">Every day</option><option value="weekdays">Weekdays</option><option value="weekly3">3 times a week</option></select></label></div><label>Why is this important? (optional)<textarea id="habitWhy" rows="2" maxlength="180" placeholder="Your reason can help keep you motivated."></textarea></label><div class="modal-actions"><button type="button" class="outline-btn" data-close-modal>Cancel</button><button class="primary-btn" type="submit">Save habit</button></div></form></div>
+
+  <div class="modal-backdrop hidden" id="goalModal"><form class="modal" id="goalForm"><div class="modal-head"><div><p class="eyebrow">A GOAL THAT MATTERS TO YOU</p><h2>Add personal goal</h2></div><button type="button" class="close-btn" data-close-modal>×</button></div><label>Goal name<input id="goalName" required maxlength="65" placeholder="e.g. Learn JavaScript basics"></label><div class="form-row"><label>Target number<input type="number" id="goalTarget" min="1" max="100000" value="10" required></label><label>Unit<input id="goalUnit" maxlength="18" placeholder="sessions, chapters..." value="sessions"></label></div><p class="muted">Progress can be updated whenever you make progress.</p><div class="modal-actions"><button type="button" class="outline-btn" data-close-modal>Cancel</button><button class="primary-btn" type="submit">Save goal</button></div></form></div>
+  <div class="modal-backdrop profile-backdrop hidden" id="profileModal"><form class="modal profile-modal" id="profileForm"><div class="modal-head"><div><p class="eyebrow">LET'S MAKE THIS YOUR SPACE</p><h2 id="profileModalTitle">A little about you</h2><p class="muted">These details help DAYFLOW suggest routines that fit you. You can skip optional fields.</p></div><button type="button" class="close-btn" data-profile-close aria-label="Close">×</button></div>
+    <label>Your name or nickname<input id="profileName" maxlength="40" placeholder="What should DAYFLOW call you?"></label>
+    <div class="form-row"><label>Birthday (optional)<input type="date" id="profileBirthday"></label><label>Gender (optional)<select id="profileGender"><option value="">Prefer not to say</option><option>Woman</option><option>Man</option><option>Non-binary</option><option>Self-describe</option></select></label></div>
+    <label>Hobbies and interests<input id="profileHobbies" maxlength="180" placeholder="e.g. basketball, music, gaming, reading"></label>
+    <label>Habits you already have<input id="profileHabits" maxlength="180" placeholder="e.g. studying at night, walking, reading"></label>
+    <label>Habits you'd like to build<input id="profileGoals" maxlength="180" placeholder="e.g. exercise, drink more water, sleep earlier"></label>
+    <label>What matters most right now?<select id="profileFocus"><option value="balanced">A balanced daily routine</option><option value="study">Study and learning</option><option value="fitness">Health and fitness</option><option value="sleep">Better sleep and rest</option><option value="productivity">Productivity and focus</option><option value="personal">Personal growth</option></select></label>
+    <p class="tiny-disclaimer">Your profile is saved only in this browser on this device. Birthday and gender are optional and aren't used to make assumptions about you.</p>
+    <div class="modal-actions"><button type="button" class="outline-btn" id="skipProfileBtn">Skip for now</button><button class="primary-btn" type="submit">Save my profile</button></div>
+  </form></div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+  <script src="app-extra.js"></script>
+</body>
+</html>
