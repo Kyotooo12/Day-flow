@@ -45,7 +45,7 @@
   async function requestPermissions() {
     const native = plugin();
     if (!isNative() || !native) return { native: false };
-    return native.requestPermissions();
+    return native.requestNotificationPermission();
   }
   async function requestExactAlarmAccess() {
     const native = plugin();

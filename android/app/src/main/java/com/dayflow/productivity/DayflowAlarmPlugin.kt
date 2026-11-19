@@ -7,13 +7,16 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import com.getcapacitor.*
+import com.getcapacitor.annotation.CapacitorPlugin
+import com.getcapacitor.annotation.Permission
+import com.getcapacitor.annotation.PermissionCallback
 import org.json.JSONArray
 import org.json.JSONObject
 
 @CapacitorPlugin(name = "DayflowAlarm", permissions = [Permission(alias = "notifications", strings = ["android.permission.POST_NOTIFICATIONS"])])
 class DayflowAlarmPlugin : Plugin() {
     @PluginMethod
-    fun requestPermissions(call: PluginCall) {
+    fun requestNotificationPermission(call: PluginCall) {
         if (Build.VERSION.SDK_INT >= 33) {
             requestPermissionForAlias("notifications", call, "notificationPermissionCallback")
         } else call.resolve(JSObject().put("granted", true))
