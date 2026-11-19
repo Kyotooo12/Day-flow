@@ -1,0 +1,11 @@
+{
+  "appId": "com.dayflow.productivity",
+  "appName": "DAYFLOW",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false
+  }
+}

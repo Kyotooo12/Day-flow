@@ -1,0 +1,1 @@
+Add implementation("androidx.core:core-ktx:1.15.0") to app/build.gradle dependencies if not already present. Ensure compileSdk/targetSdk >= 35 and minSdk >= 23. The generated Capacitor Android project supplies AndroidX AppCompat and the launcher icon resources.

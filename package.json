@@ -1,0 +1,18 @@
+{
+  "name": "dayflow",
+  "version": "4.1.1",
+  "private": true,
+  "description": "DAYFLOW personal productivity app",
+  "scripts": {
+    "test": "node tests/logic.test.js",
+    "android:sync": "cap sync android",
+    "android:open": "cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/core": "^7.4.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.4.3"
+  }
+}

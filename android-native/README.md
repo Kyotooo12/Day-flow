@@ -1,0 +1,1 @@
+Copy `app/src/main/java/com/dayflow/productivity/DayflowAlarmPlugin.kt`, `DayflowAlarmReceiver.kt`, `DayflowBootReceiver.kt` into the same package in the generated Android app. Merge the permissions and receiver declarations from `app/src/main/AndroidManifest.xml` into the generated manifest. Register the plugin in MainActivity as shown in `MainActivity.kt`.
